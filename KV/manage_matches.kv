@@ -1,0 +1,30 @@
+#:kivy 2.3.1
+<ManageMatches>:
+    name: 'manage_matches'
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: dp(10)
+        padding: dp(20)
+
+        ScrollView:
+            MDList:
+                id: lista_matches
+
+        MDRaisedButton:
+            text: "Confirmar Match Seleccionado"
+            pos_hint: {"center_x": 0.5}
+            on_release: app.confirmar_match()
+        
+        # Nuevo contenedor con botones al final
+        BoxLayout:
+            size_hint_y: None
+            height: dp(50)
+            spacing: dp(10)
+            MDRaisedButton:
+                text: "Volver"
+                pos_hint: {"center_x": 0.5}
+                on_release: root.manager.current = 'main_menu'
+            MDRaisedButton:
+                text: "Cerrar Matches"
+                pos_hint: {"center_x": 0.5}
+                on_release: app.mostrar_matches_pendientes()

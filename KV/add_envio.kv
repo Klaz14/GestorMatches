@@ -1,0 +1,48 @@
+#:kivy 2.3.1
+#:import FormattedMDTextField custom_widgets.FormattedMDTextField
+<AddEnvio>:
+    name: 'add_envio'
+    on_enter: app.set_focus('envio_monto')
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: dp(10)
+        padding: dp(20)
+        MDLabel:
+            text: "Agregar Envío"
+            halign: "center"
+            font_style: "H5"
+        FormattedMDTextField:
+            id: envio_monto
+            hint_text: "Ingrese el monto del envío"
+            helper_text: "Sólo números"
+            required: True
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: dp(80)
+            MDLabel:
+                text: "País(es) seleccionados:"
+            ScrollView:
+                size_hint_y: None
+                height: dp(60)
+                bar_width: 0
+                MDBoxLayout:
+                    id: chips_container_envio
+                    orientation: 'horizontal'
+                    spacing: dp(10)
+                    size_hint_x: None
+                    width: self.minimum_width
+                    padding: dp(5)
+        MDRaisedButton:
+            id: btn_agregar_pais
+            text: "Agregar País"
+            pos_hint: {"center_x": 0.5}
+            on_release: app.open_dropdown_envio()
+        MDRaisedButton:
+            text: "Guardar Envío"
+            pos_hint: {"center_x": 0.5}
+            on_release: app.guardar_envio(envio_monto.text, chips_container_envio.children)
+        MDFlatButton:
+            text: "Volver"
+            pos_hint: {"center_x": 0.5}
+            on_release: app.reset_screen('add_envio'); root.manager.current = 'main_menu'

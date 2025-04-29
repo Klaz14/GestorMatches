@@ -1,0 +1,84 @@
+#:kivy 2.3.1
+<SwipeMatches>:
+    name: "swipe_matches"
+    
+    BoxLayout:
+        orientation: "vertical"
+        id: swipe_area
+        size_hint_y: 1.06
+        FloatLayout:
+            
+            FloatLayout:
+                MDCard:
+                    id: top_card
+                    size_hint: None, None
+                    size: dp(300), dp(150)
+                    pos_hint: {"center_x": 0.5, "top": 1}
+                    md_bg_color: 0.8, 1, 0.8, 1
+                    elevation: 4
+                    radius: [15]
+                    MDLabel:
+                        id: label_top_card
+                        text: "Match Superior"
+                        halign: "center"
+                        valign: "middle"
+                        text_size: self.size
+                        theme_text_color: "Custom"
+                        text_color: 0, 0, 0, 1  # Color negro
+
+        
+            MDCard:
+                id: bottom_card
+                size_hint: None, None
+                size: dp(300), dp(150)
+                pos: self.parent.width/2 - dp(150), self.parent.height * 0.13
+                md_bg_color: 0.8, 1, 0.8, 1
+                elevation: 4
+                radius: [15]
+                MDLabel:
+                    id: label_bottom_card
+                    text: "Match Inferior"
+                    halign: "center"
+                    valign: "middle"
+                    text_size: self.size
+                    theme_text_color: "Custom"
+                    text_color: 0, 0, 0, 1  # Color negro   
+
+        
+            VerticalSwipeCard:
+                id: central_card
+                size_hint: None, None
+                size: dp(320), dp(180)
+                center_x: self.parent.center_x
+                # Aquí el centro vertical se calcula como el promedio entre el borde inferior (y) de top_card y el borde superior (top) de bottom_card.
+                center_y: (top_card.y + bottom_card.top) / 2
+                md_bg_color: 0.5, 0.7, 1, 1
+                elevation: 6
+                radius: [15]
+                MDLabel:
+                    id: label_central_card
+                    text: "Operación Match"
+                    halign: "center"
+                    valign: "middle"
+                    text_size: self.size
+                    theme_text_color: "Custom"   # ¡Dile a la etiqueta que use un color personalizado!
+                    text_color: 0, 0, 0, 1       # Establece el color negro en formato RGBA
+                    
+
+
+
+
+        # Área de Controles: solo "Volver" y "Cerrar Matches".
+        BoxLayout:
+            size_hint_y: 0.1
+            orientation: "horizontal"
+            padding: dp(10)
+            spacing: dp(10)
+            MDRaisedButton:
+                text: "Volver"
+                on_release: root.manager.current = 'main_menu'
+            Widget:
+                size_hint_x: 1
+            MDRaisedButton:
+                text: "Cerrar Matches"
+                on_release: app.mostrar_matches_pendientes()

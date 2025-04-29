@@ -1,0 +1,19 @@
+#:kivy 2.3.1
+<PDFReport>:
+    name: 'pdf_report'
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: dp(10)
+        padding: dp(20)
+        MDLabel:
+            text: "Generar Informe PDF"
+            halign: "center"
+            font_style: "H5"
+        MDRaisedButton:
+            text: "Generar PDF"
+            pos_hint: {"center_x": 0.5}
+            on_release: app.generar_pdf()
+        MDFlatButton:
+            text: "Volver"
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = 'main_menu'

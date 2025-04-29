@@ -1,0 +1,77 @@
+#:kivy 2.3.1
+#:import FormattedMDTextField custom_widgets.FormattedMDTextField
+
+<ModifyOperacion>:
+    on_pre_enter: app.reset_modify_screen()
+    on_enter: app.update_selected_label("modificacion")
+    name: 'modify_operacion'
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: dp(10)
+        padding: dp(20)
+
+        MDLabel:
+            text: "Modificar Operación"
+            halign: "center"
+            font_style: "H5"
+
+        MDRaisedButton:
+            id: btn_seleccionar_operacion
+            text: "Seleccionar Operación"
+            pos_hint: {'center_x': 0.5}
+            on_release: app.mostrar_menu_operaciones()
+
+        MDLabel:
+            id: lbl_operacion_info
+            text: "No se ha seleccionado ninguna operación."
+            halign: "center"
+            theme_text_color: "Secondary"
+
+        FormattedMDTextField:
+            id: nuevo_monto
+            hint_text: "Monto orig."
+            helper_text: "Ingrese nuevo monto"
+            mode: "rectangle"
+            size_hint_x: 0.8
+            # Opcional: limita el tamaño del texto para que no se desborde
+            text_size: self.width, None
+
+
+        ScrollView:
+            MDList:
+                id: lista_operaciones
+
+
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: dp(10)
+            MDRaisedButton:
+                id: btn_agregar_pais
+                text: "Agregar País"
+                on_release: app.open_dropdown_modificacion()
+                size_hint_x: 0.4
+            ScrollView:
+                size_hint_x: 0.6
+                MDBoxLayout:
+                    id: chips_container_modificacion
+                    orientation: 'horizontal'
+                    spacing: dp(10)
+                    size_hint_x: None
+                    width: self.minimum_width
+                    padding: dp(5)
+
+        MDLabel:
+            id: lbl_mensaje_pais
+            text: "Si se deja vacío, se mantendrán los países ya guardados."
+            halign: "center"
+            theme_text_color: "Hint"
+
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: dp(10)
+            MDRaisedButton:
+                text: "Modificar"
+                on_release: app.modificar_operacion()
+            MDFlatButton:
+                text: "Volver"
+                on_release: app.reset_modify_screen(); root.manager.current = 'main_menu'

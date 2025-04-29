@@ -1,0 +1,62 @@
+#:kivy 2.3.1
+<MainMenu>:
+    name: 'main_menu'
+    on_enter: app.update_badge_matches()  # Actualiza el badge al entrar al menú principal
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: dp(10)
+        padding: dp(20)
+        MDLabel:
+            text: "Bienvenido al Menú Principal"
+            halign: "center"
+            theme_text_color: "Primary"
+            font_style: "H5"
+        MDRaisedButton:
+            text: "Agregar Envío"
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = 'add_envio'
+        MDRaisedButton:
+            text: "Agregar Recepción"
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = 'add_recepcion'
+        FloatLayout:
+            size_hint_y: None
+            height: dp(50)
+            MDRaisedButton:
+                id: btn_matches
+                text: "Gestionar Matches"
+                size_hint: None, None
+                size: dp(200), dp(40)
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                on_release: app.go_to_matches()
+            BadgeLabel:
+                id: badge_matches
+                text: ""
+                size_hint: None, None
+                size: dp(25), dp(25)
+                pos: (btn_matches.right - dp(12), btn_matches.top - dp(12))
+                halign: "center"
+                valign: "middle"
+                theme_text_color: "Custom"
+                text_color: (1, 1, 1, 1)
+                font_style: "Caption"
+                bold: True
+                canvas.before:
+                    Color:
+                        rgba: self.badge_color
+                    Ellipse:
+                        pos: self.pos
+                        size: self.size
+        MDRaisedButton:
+            id: btn_pdf
+            text: "Generar Reporte en PDF"
+            pos_hint: {"center_x": 0.5}
+            on_release: app.mostrar_seleccion_mes()
+        MDRaisedButton:
+            text: "Modificar Operación"
+            pos_hint: {"center_x": 0.5}
+            on_release: root.manager.current = 'modify_operacion'
+        MDRaisedButton:
+            text: "Cerrar Aplicación"
+            pos_hint: {"center_x": 0.5}
+            on_release: app.stop()
